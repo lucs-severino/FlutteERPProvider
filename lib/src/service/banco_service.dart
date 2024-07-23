@@ -25,9 +25,9 @@ class BancoService extends ServiceBase {
     }
   }
 
-  Future<Banco> consultarObjeto(int idBanco) async {
+  Future<Banco> consultarObjeto(int id) async {
     // pega o objeto do servidor pelo id
-    final response = await cliente.get('$endpoint/banco/$idBanco');
+    final response = await cliente.get('$endpoint/banco/$id');
     if (response.statusCode == 200) {
       var bancoJson = json.decode(response.body);
       return Banco.fromJson(bancoJson);
@@ -60,9 +60,9 @@ class BancoService extends ServiceBase {
     }
   }
 
-  Future<bool> excluir(int idBanco) async {
+  Future<bool> excluir(int id) async {
     final response = await cliente.delete(
-      '$endpoint/banco/$idBanco,',
+      '$endpoint/banco/$id',
       headers: {"content-type": "application/json"},
     );
     if (response.statusCode == 200) {

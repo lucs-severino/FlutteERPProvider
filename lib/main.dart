@@ -1,40 +1,27 @@
+import 'package:f/src/infra/locator.dart';
+import 'package:f/src/infra/rotas.dart';
+import 'package:f/src/view_model/banco_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Adicionado import do provider
 
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("ERP"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => locator<BancoViewModel>()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(),
+        initialRoute: '/',
+        title: 'ERP F',
+        onGenerateRoute: Rotas.definirRotas,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
